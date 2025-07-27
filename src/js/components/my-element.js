@@ -2,7 +2,25 @@ import { html, LitElement } from 'lit';
 
 class MyElement extends LitElement {
   static properties = {
-    name: {},
+    name: {
+      type: String,
+      //   type: Boolean,
+      reflect: true,
+
+      converter: {
+        fromAttribute(value, type) {
+          console.log('fromAttribute');
+          if (value) {
+            return type(value).toLowerCase();
+          }
+          return value;
+        },
+        toAttribute(value, type) {
+          console.log('toAttribute');
+          return String(value).toUpperCase();
+        },
+      },
+    },
   };
 
   render() {
